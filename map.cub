@@ -1,0 +1,16 @@
+R	640 640
+
+NO	./textures/monke.xpm
+SO	./textures/short.xpm
+WE	./textures/snf.xpm
+EA	./textures/vsh.xpm
+S	./textures/HaS.xpm
+
+F	100,100,100
+C	25,58,200
+
+11111
+10001
+10N01
+10001
+11111
