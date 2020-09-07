@@ -6,13 +6,13 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 19:10:43 by sraphard          #+#    #+#             */
-/*   Updated: 2020/06/10 19:10:54 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/07 13:22:03 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnjoin(char *dst, char *src, int nb)
+char	*ft_strnjoin(char *dst, char *src, int nb, int sw)
 {
 	char	*new;
 	int		i;
@@ -32,6 +32,9 @@ char	*ft_strnjoin(char *dst, char *src, int nb)
 		j++;
 	}
 	new[i + j] = 0;
-	free(dst);
+	if (sw == 0 || sw == 2)
+		free(dst);
+	if (sw == 1 || sw == 2)
+		free(src);
 	return (new);
 }

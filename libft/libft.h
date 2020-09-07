@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 20:08:50 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/06 14:03:35 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/07 13:46:12 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				ft_get_size_number(int i);
 int				ft_get_size_unsigned(unsigned int i);
 char			*ft_strncat(char *dst, char *src, int nb);
 char			*ft_delchar(char *s, char c, char x);
-char			*ft_strnjoin(char *dst, char *src, int nb);
+char			*ft_strnjoin(char *dst, char *src, int nb, int sw);
 char			*ft_strcat(char *dst, char *src);
 void			ft_add_x_char(char **s, char *c, int n);
 void			ft_strrep(char **s1, char *s2);
@@ -90,4 +90,6 @@ int			ft_nbrlen(int x);
 int			ft_iswhite(char c);
 int			ft_is_set_nbr(int x, int size, ...);
 int			ft_is_btwn(int i, int min, int max);
+char			*ft_strndup(char const *s, int x);
+char			*ft_strlstr(char const *haystack, const char *needle, size_t len);
 #endif

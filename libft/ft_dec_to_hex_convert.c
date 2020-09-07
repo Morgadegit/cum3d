@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 19:04:34 by sraphard          #+#    #+#             */
-/*   Updated: 2020/06/11 21:58:46 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/07 13:27:52 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_d_t_h_conv_p(unsigned long long x)
 	table = ft_strdup("0123456789abcdef");
 	while (x)
 	{
-		conv = ft_strnjoin(conv, table + (x % 16), 1);
+		conv = ft_strnjoin(conv, table + (x % 16), 1, 0);
 		x /= 16;
 	}
 	free(table);
@@ -44,7 +44,7 @@ char		*ft_dec_to_hex_convert(long x)
 		x = UINT_MAX - (((x + 1) * -1));
 	while (x)
 	{
-		conv = ft_strnjoin(conv, table + (x % 16), 1);
+		conv = ft_strnjoin(conv, table + (x % 16), 1, 0);
 		x /= 16;
 	}
 	free(table);
