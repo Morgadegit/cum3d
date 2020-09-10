@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 15:51:41 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/07 16:58:47 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/10 19:44:44 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,43 +67,38 @@ static void	ft_fill_para(char *line, t_map *map, int i)
 			i++;
 		map->res[1] = ft_atoi(line + i);
 	}
-	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || 
+	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
 	!ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || *line == 'S')
 	{
 		i = 2;
+		free(map->txtr[ft_get_txt(line)]);
 		map->txtr[ft_get_txt(line)] = ft_strtrim(line + i, " \t");
 	}
 	if (*line == 'F' || *line == 'C')
-	{
 		ft_fill_clr(map, 2, line);
-	}
-
 }
 
-void	trash(t_map *map)
-{
-	printf("R -- %d %d\nNO -- %s\nSO -- %s\nWE -- %s\nEA -- %s\nS -- %s\nF -- %i,%i,%i\nC -- %i,%i,%i\n", map->res[0], map->res[1], map->txtr[0], map->txtr[1], map->txtr[2], map->txtr[3], map->txtr[4], map->floor[0], map->floor[1], map->floor[2], map->ceiling[0], map->ceiling[1], map->ceiling[2]);
-}
-
-int	main(int ac, char **av)
+int		ft_map_parse(t_map *map, char *cub)
 {
 	int	fd;
 	char	*line;
-	t_map	map ;
 
 	line = NULL;
-	ft_init_map(&map);
-	(void)ac;
-	fd = open(av[1], O_RDONLY);
+	ft_init_map(map);
+	if ((fd = open(cub, O_RDONLY)) == -1)
+	{
+		ft_putstr_fd("Error\nInvalid .cub file", 2);
+		return (0);
+	}
 	while (get_next_line(fd, &line))
 	{
-		while (!*line)
-			get_next_line(fd, &line);
-		if (!ft_check_map(line, fd))
+		if (!ft_check_map(line))
 			return (0);
-		ft_fill_para(line, &map, 0);
+		line ? ft_fill_para(line, map, 0) : 0;
+		free(line);
 	}
-	trash(&map);
+	free(line);
+	trash(map);
 	close(fd);
 	return (0);
 }

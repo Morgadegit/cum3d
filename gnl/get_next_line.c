@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 18:26:15 by sraphard          #+#    #+#             */
-/*   Updated: 2020/01/16 15:46:41 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/10 19:38:35 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*actual_gnl(char *buf_nd, int fd, int *size)
 			free(buf_nd);
 			return (ft_strdup(""));
 		}
-		buf_nd = ft_strjoin(buf_nd, buf_st, 'x');
+		buf_nd = ft_strjoin(buf_nd, buf_st, 0);
 	}
 	return (buf_nd);
 }
@@ -49,12 +49,8 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	*buf_nd = 0;
 	if (buff_def)
-	ft_strlcpy(buf_nd, buff_def, BUFFER_SIZE);
-	if (!(buf_nd = actual_gnl(buf_nd, fd, &size)))
-	{
-		*line = ft_strdup("");
-		return (-1);
-	}
+		ft_strlcpy(buf_nd, buff_def, BUFFER_SIZE);
+	buf_nd = actual_gnl(buf_nd, fd, &size);
 	free(buff_def);
 	buff_def = ft_strchr(buf_nd, '\n');
 	if (buff_def)

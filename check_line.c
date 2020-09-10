@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 19:19:42 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/07 14:18:24 by sraphard         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:01:17 by sraphard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	ft_check_r(char *line, int i, int sstate)
 
 static int	ft_check_txt(char *line, int i, int sstate)
 {
+	char	*s;
+
 	while (line[++i])
 		if ((sstate == 1 || sstate == 3) && ft_iswhite(line[i]))
 		{
@@ -48,9 +50,10 @@ static int	ft_check_txt(char *line, int i, int sstate)
 			sstate++;
 		}
 		else if (sstate == 2 &&
-				open(ft_strtrim(line + i, " \t"), O_RDONLY) != -1)
+				open(s = ft_strtrim(line + i, " \t"), O_RDONLY) != -1)
 		{
-			i += ft_strlen(ft_strtrim(line + i, " \t")) - 1;
+			i += ft_strlen(s) - 1;
+			free(s);
 			sstate++;
 		}
 		else
@@ -99,20 +102,20 @@ static int	ft_chck_clr(char *line, int i, int sstate)
 	return (1);
 }
 
-int		ft_check_map(char *line, int fd)
+int		ft_check_map(char *line)
 {
-	static char	*check_repeat = "";
+	static char	*chck_rpt = "";
 
-	if (ft_strlen(check_repeat) == 32)
+	if (ft_strlen(chck_rpt) == 32)
 		return (1);
-	if (ft_strlstr(check_repeat, line, 2))
+	if (ft_strlstr(chck_rpt, line, 2))
 	{
-		printf("%s\n", check_repeat);
+		printf("%s\n", chck_rpt);
 		ft_putstr_fd("Error\nRepeating Map Parameters.", 2);
 		return (0);
 	}
-	check_repeat = ft_strnjoin(check_repeat, line, 2, 10);
-	check_repeat = ft_strjoin(check_repeat, ", ", 10);
+	chck_rpt = ft_strnjoin(chck_rpt, line, 2, *chck_rpt ? 0 : 10);
+	chck_rpt = ft_strjoin(chck_rpt, ", ", *chck_rpt ? 0 : 10);
 	if (*line == 'R')
 		return (ft_check_r(line, 0, 1));
 	else if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
