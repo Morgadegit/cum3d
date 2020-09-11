@@ -28,6 +28,7 @@ int		ft_map_parse(t_map *map, char *cub);
 void		ft_init_map(t_map *map);
 int		ft_check_map(char *line);
 int		ft_free_map(t_map *map);
+int		ft_err(int err);
 
 void		trash(t_map *map);
 #endif

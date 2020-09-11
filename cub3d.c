@@ -18,9 +18,6 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	if (!ft_map_parse(&map, av[1]))
-	{
-		ft_free_map(&map);
-		return (0);
-	}
+		return (ft_free_map(&map));
 	ft_free_map(&map);
 }

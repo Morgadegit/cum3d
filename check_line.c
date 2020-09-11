@@ -30,10 +30,7 @@ static int	ft_check_r(char *line, int i, int sstate)
 			sstate++;
 		}
 		else
-		{
-			ft_putstr_fd("Error\nInvalid Resolution.", 2);
-			return (0);
-		}
+			return (ft_err(1));
 	return (1);
 }
 
@@ -57,10 +54,7 @@ static int	ft_check_txt(char *line, int i, int sstate)
 			sstate++;
 		}
 		else
-		{
-			ft_putstr_fd("Error\nInvalid Texture.", 2);
-			return (0);
-		}
+			return (ft_err(2));
 	return (1);
 }
 
@@ -74,10 +68,7 @@ static int	ft_err_clr(int *sstate, int check, char **line, int *i)
 		return (1);
 	}
 	else
-	{
-		ft_putstr_fd("Error\nInvalid Colour.", 2);
-		return (0);
-	}
+		return (ft_err(3));
 }
 
 static int	ft_chck_clr(char *line, int i, int sstate)
@@ -104,18 +95,6 @@ static int	ft_chck_clr(char *line, int i, int sstate)
 
 int		ft_check_map(char *line)
 {
-	static char	*chck_rpt = "";
-
-	if (ft_strlen(chck_rpt) == 32)
-		return (1);
-	if (ft_strlstr(chck_rpt, line, 2))
-	{
-		printf("%s\n", chck_rpt);
-		ft_putstr_fd("Error\nRepeating Map Parameters.", 2);
-		return (0);
-	}
-	chck_rpt = ft_strnjoin(chck_rpt, line, 2, *chck_rpt ? 0 : 10);
-	chck_rpt = ft_strjoin(chck_rpt, ", ", *chck_rpt ? 0 : 10);
 	if (*line == 'R')
 		return (ft_check_r(line, 0, 1));
 	else if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
