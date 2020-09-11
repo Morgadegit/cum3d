@@ -13,6 +13,7 @@
 SRCS            =       gnl/get_next_line.c \
 			cub3d.c cub3d_utils.c \
 			check_line.c map_parsing.c \
+			$(wildcard libft/*.c) \
 
 OBJS            =	${SRCS:.c=.o}
 
