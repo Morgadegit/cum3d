@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 18:02:57 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/16 13:00:34 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 23:04:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,23 @@ typedef	struct	s_map
 	char	*txtr[5];
 	int	floor[3];
 	int	ceiling[3];
-	int	*map;
-	void	*mlxp;
-	void	*window;
+	int	*mw;
+	char	*map;
 }		t_map;
-typedef struct	s_hooks
+typedef struct	s_mega
 {
+	t_map	map;
 	void	*mlxp;
-	void	*window;
-	int	hook;
-}		t_hooks;
+	void	*win;
+	int	pos[2];
+}		t_mega;
 int		ft_map_parse(t_map *map, char *cub);
 void		ft_init_map(t_map *map);
 int		ft_check_map(char *line);
 int		ft_free_map(t_map *map);
 int		ft_err(int err);
-void		ft_get_hooks(t_hooks *hooks, void *mlxp, void *window, int hook);
 void		trash(t_map *map);
+int		ft_ismapfil(t_map *map);
+int		ft_proper(t_map *map, char **line, int fd);
+void		*ft_ralloc(int *ptr, unsigned int size, int value);
 #endif

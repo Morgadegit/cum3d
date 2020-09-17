@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 19:36:12 by user42            #+#    #+#             */
-/*   Updated: 2020/09/15 14:02:16 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 23:24:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	ft_init_map(t_map *map)
 	i = -1;
 	while (++i < 3)
 		map->ceiling[i] = -1;
-	map->mlxp = NULL;
-	map->window = NULL;
+	map->map = ft_strdup("");
+	map->mw = malloc(sizeof(int));
+	map->mw[0] = -1;
 }
 
 int	ft_free_map(t_map *map)
@@ -63,4 +64,22 @@ int	ft_err(int err)
 void	trash(t_map *map)
 {
 printf("R -- %d %d\nNO -- %s\nSO -- %s\nWE -- %s\nEA -- %s\nS -- %s\nF -- %i,%i,%i\nC -- %i,%i,%i\n", map->res[0], map->res[1], map->txtr[0], map->txtr[1], map->txtr[2], map->txtr[3], map->txtr[4], map->floor[0], map->floor[1], map->floor[2], map->ceiling[0], map->ceiling[1], map->ceiling[2]);
+}
+
+void	*ft_ralloc(int *ptr, unsigned int size, int value)
+{
+	int	i;
+	int	*new;
+
+	i = 0;
+	new = malloc(size * sizeof(int));
+	while (size--)
+	{
+		new[i] = ptr[i];
+		i++;
+	}
+	new[i - 1] = value;
+	new[i] = -1;
+	free(ptr);
+	return (new);
 }

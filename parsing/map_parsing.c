@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 15:51:41 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/15 14:50:52 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 12:16:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		ft_map_parse(t_map *map, char *cub)
 			if (!ft_fill_para(line, map, 0))
 				return (0);
 		free(line);
+		ft_ismapfil(map) ? ft_proper(map, &line, fd) : 0;
 	}
 	free(line);
 //	trash(map);

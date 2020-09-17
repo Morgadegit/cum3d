@@ -6,34 +6,32 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 12:19:20 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/16 15:30:51 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 11:53:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ft_key_press(t_hooks *hooks, unsigned int keycode)
+static int	ft_key_press(int keycode, t_mega *hooks)
 {
-	printf("prout %d\n", keycode);
-	if (keycode == 9)
-		mlx_destroy_window(hooks->mlxp, hooks->window);
+	if (keycode == 65307)
+	{
+		mlx_destroy_window(hooks->mlxp, hooks->win);
+		exit(0);
+	}
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_map	map;
-	void	*mlxp;
-	void	*window;
-	t_hooks	hooks;
+	t_mega	mega;
 
 	(void)ac;
-	if (!ft_map_parse(&map, av[1]))
-		return (ft_free_map(&map));
-	mlxp = mlx_init();
-	window = mlx_new_window (mlxp, map.res[0], map.res[1], "CUB3D");
-	ft_get_hooks(&hooks, mlxp, window, 0);
-	mlx_key_hook(window, ft_key_press, &hooks);
-	mlx_loop(mlxp);
-	ft_free_map(&map);
+	if (!ft_map_parse(&mega.map, av[1]))
+		return (ft_free_map(&mega.map));
+	mega.mlxp = mlx_init();
+	mega.win = mlx_new_window (mega.mlxp, mega.map.res[0], mega.map.res[1], "CUB3D");
+	mlx_hook(mega.win, 3, 2, ft_key_press, &mega);
+	mlx_loop(mega.mlxp);
+	ft_free_map(&mega.map);
 }
