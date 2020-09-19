@@ -6,18 +6,26 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 12:19:20 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/17 11:53:31 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 15:23:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ft_key_press(int keycode, t_mega *hooks)
+static int	ft_key_press(int keycode, t_mega *mega)
 {
-	if (keycode == 65307)
+	static int i = 50;
+	static int j = 85;
+	if (keycode == ESC)
 	{
-		mlx_destroy_window(hooks->mlxp, hooks->win);
+		mlx_destroy_window(mega->mlxp, mega->win);
 		exit(0);
+	}
+	else if (keycode)
+	{
+		mlx_string_put(mega->mlxp, mega->win, i, j, 119381, "the industrial revolution and its consequences have been a disaster for the human race");
+		i += 10;
+		j += 10;
 	}
 	return (0);
 }

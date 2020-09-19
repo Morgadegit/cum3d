@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 18:02:57 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/17 23:04:18 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/19 15:15:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,26 @@
 # include "mlx/mlx.h"
 # include "mlx/mlx_int.h"
 
+# define ESC	0xff1b
+# define LEFT	0xff51
+
 typedef	struct	s_map
 {
 	int	res[2];
 	char	*txtr[5];
 	int	floor[3];
 	int	ceiling[3];
-	int	*mw;
-	char	*map;
+	char	**map;
 }		t_map;
+typedef struct	s_eng
+{
+	double	pos[2];
+	double	dir[2];
+}		t_eng;
 typedef struct	s_mega
 {
 	t_map	map;
+	t_eng	eng;
 	void	*mlxp;
 	void	*win;
 	int	pos[2];
@@ -42,5 +50,6 @@ int		ft_err(int err);
 void		trash(t_map *map);
 int		ft_ismapfil(t_map *map);
 int		ft_proper(t_map *map, char **line, int fd);
-void		*ft_ralloc(int *ptr, unsigned int size, int value);
+char		**ft_ralloc(char **ptr, unsigned int size);
+int		ft_exit(t_mega *mega, int code);
 #endif
