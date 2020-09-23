@@ -1,7 +1,7 @@
-C	25,58,0
-R	640 640
-EA	./textures/vsh.xpm
-F	100,100,0
+C	215,1,113
+R	640 420
+EA	./textures/ted.xpm
+F	1,57,168
 
 NO	./textures/monke.xpm
 SO	./textures/short.xpm
@@ -9,7 +9,7 @@ WE	./textures/snf.xpm
 S	./textures/HaS.xpm
 
    1111
- 1100001
-100N01101
-1000000001
+ 1100011
+100010011
+100000E001
  11111111
