@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 11:59:55 by user42            #+#    #+#             */
-/*   Updated: 2020/09/18 14:59:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 14:23:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_proper (t_map *map, char **line, int fd)
 	row = 0;
 	while (get_next_line(fd, line))
 	{
-		while (!**line)
+		while (!ft_strlen(*line))
 		{
 			free(*line);
 			get_next_line(fd, line);

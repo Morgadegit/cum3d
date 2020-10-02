@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 18:02:57 by sraphard          #+#    #+#             */
-/*   Updated: 2020/09/23 13:36:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 14:17:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		ft_err(int err);
 void		trash(t_map *map);
 int		ft_ismapfil(t_map *map);
 int		ft_proper(t_map *map, char **line, int fd);
-char		**ft_ralloc(char **ptr, unsigned int size);
+char		**ft_ralloc(char **ptr, int size);
 int		ft_exit(t_mega *mega, int code);
 void		ft_get_start(t_mega *mega);
 void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x);
