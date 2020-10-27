@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 13:50:23 by user42            #+#    #+#             */
-/*   Updated: 2020/10/02 13:36:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/24 13:52:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,31 @@ static void	ft_get_dir(char c, t_eng *eng)
 {
 	if (c == 'N')
 	{
-		eng->dir[0] = 0;
-		eng->dir[1] = 1;	
+		eng->dir[0] = -1;
+		eng->dir[1] = 0;	
+		eng->cam[0] = 0;	
+		eng->cam[1] = 0.66;	
 	}
 	else if (c == 'S')
 	{
-		eng->dir[0] = 0;
-		eng->dir[1] = -1;	
+		eng->dir[0] = 1;
+		eng->dir[1] = 0;	
+		eng->cam[0] = 0;	
+		eng->cam[1] = -0.66;	
 	}
 	else if (c == 'E')
 	{
-		eng->dir[0] = 1;
-		eng->dir[1] = 0;	
+		eng->dir[0] = 0;
+		eng->dir[1] = 1;	
+		eng->cam[0] = 0.66;	
+		eng->cam[1] = 0;	
 	}
 	else if (c == 'W' || c == 'O')
 	{
-		eng->dir[0] = -1;
-		eng->dir[1] = 0;	
+		eng->dir[0] = 0;
+		eng->dir[1] = -1;
+		eng->cam[0] = -0.66;	
+		eng->cam[1] = 0;	
 	}
 }
 
@@ -55,11 +63,11 @@ void		ft_get_start(t_mega *mega)
 		}
 		x++;
 	}
+	mega->eng.step = 0.5;
+	mega->eng.turn = 1;
 	ft_get_dir(c, &(mega->eng));
 	mega->eng.pos[0] = x;
 	mega->eng.pos[1] = y;
-	mega->eng.cam[0] = 0;
-	mega->eng.cam[1] = 0.66;
 	printf("%d, %d\n", x, y);
 }
 

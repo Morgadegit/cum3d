@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 18:02:57 by sraphard          #+#    #+#             */
-/*   Updated: 2020/10/01 14:17:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/24 13:32:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 # define ESC	0xff1b
 # define LEFT	0xff51
+# define RIGHT	0xff53
+# define UP	0xff52
+# define DOWN	0xff54
 
 typedef	struct	s_map
 {
