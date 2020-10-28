@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 13:50:23 by user42            #+#    #+#             */
-/*   Updated: 2020/10/24 13:52:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/28 10:35:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		ft_get_start(t_mega *mega)
 		}
 		x++;
 	}
-	mega->eng.step = 0.5;
-	mega->eng.turn = 1;
+	mega->eng.step = 0.05;
+	mega->eng.turn = 0.05;
 	ft_get_dir(c, &(mega->eng));
 	mega->eng.pos[0] = x;
 	mega->eng.pos[1] = y;

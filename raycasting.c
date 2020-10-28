@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 12:59:04 by user42            #+#    #+#             */
-/*   Updated: 2020/10/24 14:56:04 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/28 10:55:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_step(t_eng *eng)
 	else
 	{
 		eng->Dstep[0] = 1;
-		eng->Ddist[0] = (eng->Dpos[0] + 1.0 - eng->pos[0]) * eng->Ddelta[0];
+		eng->Ddist[0] = (eng->Dpos[0] - eng->pos[0] + 1.0) * eng->Ddelta[0];
 	}
 	if (eng->ray[1] < 0)
 	{
@@ -32,7 +32,7 @@ static void	ft_step(t_eng *eng)
 	else
 	{
 		eng->Dstep[1] = 1;
-		eng->Ddist[1] = (eng->Dpos[1] + 1.0 - eng->pos[1]) * eng->Ddelta[1];
+		eng->Ddist[1] = (eng->Dpos[1] - eng->pos[1] + 1.0) * eng->Ddelta[1];
 	}
 }
 
@@ -65,7 +65,7 @@ static void	ft_draw_screen(t_mega *mega, int Wmin, int Wmax, int x)
 	while (++y < Wmin)
 		mlx_pixel_put(mega->mlxp, mega->win, x, y, ft_get_color(mega->map.floor));
 	while (++y < Wmax)
-		mlx_pixel_put(mega->mlxp, mega->win, x, y - 1, 0x9C4E97);
+		mlx_pixel_put(mega->mlxp, mega->win, x, y - 1, mega->eng.side ? 0x9C4E97 : 0x9C4E97 / 2);
 	while (++y - 2 < mega->map.res[1])
 		mlx_pixel_put(mega->mlxp, mega->win, x, y - 2,ft_get_color(mega->map.ceiling));
 }
@@ -95,8 +95,8 @@ void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x)
 		eng->ray[1] = eng->dir[1] + eng->cam[1] * eng->scr;
 		eng->Dpos[0] = (int)(eng->pos[0]);
 		eng->Dpos[1] = (int)(eng->pos[1]);
-		eng->Ddelta[0] = (eng->ray[1] == 0) ? 0 : ((eng->ray[0] == 0) ? 1 : abs(1 / eng->ray[0]));
-		eng->Ddelta[1] = (eng->ray[0] == 0) ? 0 : ((eng->ray[1] == 0) ? 1 : abs(1 / eng->ray[1]));
+		eng->Ddelta[0] = !eng->ray[1] ? 0 : (!eng->ray[0] ? 1 : abs(1 / eng->ray[0]));
+		eng->Ddelta[1] = !eng->ray[0] ? 0 : (!eng->ray[1] ? 1 : abs(1 / eng->ray[1]));
 		ft_step(eng);
 		ft_DDA(eng, map);
 		if (eng->side == 0)

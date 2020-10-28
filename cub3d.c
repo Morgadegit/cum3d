@@ -6,7 +6,7 @@
 /*   By: sraphard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 12:19:20 by sraphard          #+#    #+#             */
-/*   Updated: 2020/10/24 14:52:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/28 10:54:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void	ft_rotate(int keycode, t_mega *mega, t_eng *eng)
 		eng->dir[0] = eng->dir[0] * cos(-(eng->turn)) - eng->dir[1] * sin(-(eng->turn));
 		eng->dir[1] = dirX * sin(-(eng->turn)) + eng->dir[1] * cos(-(eng->turn));
 		eng->cam[0] = eng->cam[0] * cos(-(eng->turn)) - eng->cam[1] * sin(-(eng->turn));
-		eng->cam[1] = planeX * sin(-(eng->turn)) + eng->dir[1] * cos(-(eng->turn));
+		eng->cam[1] = planeX * sin(-(eng->turn)) + eng->cam[1] * cos(-(eng->turn));
 	}
 	else if (keycode == LEFT)
 	{
 		eng->dir[0] = eng->dir[0] * cos(eng->turn) - eng->dir[1] * sin(eng->turn);
 		eng->dir[1] = dirX * sin(eng->turn) + eng->dir[1] * cos(eng->turn);
 		eng->cam[0] = eng->cam[0] * cos(eng->turn) - eng->cam[1] * sin(eng->turn);
-		eng->cam[1] = planeX * sin(eng->turn) + eng->dir[1] * cos(eng->turn);
+		eng->cam[1] = planeX * sin(eng->turn) + eng->cam[1] * cos(eng->turn);
 	}
 	ft_raycast(mega, &(mega->eng), &(mega->map), -1);
 }
