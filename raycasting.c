@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 12:59:04 by user42            #+#    #+#             */
-/*   Updated: 2020/10/28 10:55:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/28 11:22:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	ft_DDA(t_eng *eng, t_map *map)
 			eng->Dpos[1] += eng->Dstep[1];
 			eng->side = 1;
 		}
-		if (map->map[eng->Dpos[0]][eng->Dpos[1]] == '1')
+		if (map->map[(int)eng->Dpos[0]][(int)eng->Dpos[1]] == '1')
 			break;
 	}
 }
