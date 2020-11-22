@@ -44,6 +44,20 @@ static void	ft_get_dir(char c, t_eng *eng)
 	}
 }
 
+static void	ft_get_txtr(t_mega *mega, t_map *map, int i)
+{
+	int	h;
+	int	w;
+
+	h = 50;
+	w = 50;
+	while (++i <= 4)
+	{
+		printf("cunt : %s\n", (char *)(map->txtr[i]));
+		map->txtr[i] = mlx_xpm_file_to_image(mega->mlxp, (char *)(map->txtr[i]), &h, &w);
+	}
+}
+
 void		ft_get_start(t_mega *mega)
 {
 	int	x;
@@ -51,6 +65,7 @@ void		ft_get_start(t_mega *mega)
 	char	c;
 
 	x = 0;
+	c = 0;
 	while (*(mega->map.map[x]))
 	{
 		y = 0;
@@ -63,12 +78,12 @@ void		ft_get_start(t_mega *mega)
 		}
 		x++;
 	}
-	mega->eng.step = 0.05;
-	mega->eng.turn = 0.02;
+	mega->eng.step = 0.08;
+	mega->eng.turn = 0.04;
 	ft_get_dir(c, &(mega->eng));
+	ft_get_txtr(mega, &(mega->map), -1);
 	mega->eng.pos[0] = x;
 	mega->eng.pos[1] = y;
-	printf("%d, %d\n", x, y);
 }
 
 int	ft_get_color(int rgb[3])

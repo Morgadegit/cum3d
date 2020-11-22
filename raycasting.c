@@ -87,7 +87,6 @@ static void	ft_draw_wall(t_eng *eng, t_map *map, t_mega *mega, int x)
 void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x)
 {
 
-	printf("%f, %f\ndirX = %f, dirY = %f, camX = %f, camY = %f\n", eng->pos[0], eng->pos[1], eng->dir[0], eng->dir[1], eng->cam[0], eng->cam[1]);
 	while (++x < map->res[0])
 	{
 		eng->scr = 2 * x / (double)(map->res[0]) - 1;
@@ -95,12 +94,12 @@ void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x)
 		eng->ray[1] = eng->dir[1] + eng->cam[1] * eng->scr;
 		eng->Dpos[0] = (int)(eng->pos[0]);
 		eng->Dpos[1] = (int)(eng->pos[1]);
-		eng->Ddelta[0] = !eng->ray[1] ? 0 : (!eng->ray[0] ? 1 : abs(1 / eng->ray[0]));
-		eng->Ddelta[1] = !eng->ray[0] ? 0 : (!eng->ray[1] ? 1 : abs(1 / eng->ray[1]));
+		eng->Ddelta[0] = !eng->ray[1] ? 0 : (!eng->ray[0] ? 1 : fabs(1 / eng->ray[0]));
+		eng->Ddelta[1] = !eng->ray[0] ? 0 : (!eng->ray[1] ? 1 : fabs(1 / eng->ray[1]));
 		ft_step(eng);
 		ft_DDA(eng, map);
 		if (eng->side == 0)
-			eng->Wdist = (eng->Dpos[0] - eng->pos[0] + (1 - eng->Dstep[0]) / 2) / eng->ray[0] + 1;
+			eng->Wdist = (eng->Dpos[0] - eng->pos[0] + (1 - eng->Dstep[0]) / 2) / eng->ray[0];
 		else
 			eng->Wdist = (eng->Dpos[1] - eng->pos[1] + (1 - eng->Dstep[1]) / 2) / eng->ray[1];
 		ft_draw_wall(eng, map, mega, x);
