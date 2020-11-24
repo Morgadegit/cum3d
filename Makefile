@@ -32,10 +32,10 @@ cub3d.a		:	${OBJS}
 			ranlib cub3d.a
 
 $(NAME)		:	cub3d.a
-			gcc -o ${NAME} ${FLAGS} cub3d.c cub3d.a -I. -g ${LIBS}
+			gcc -o ${NAME} cub3d.c cub3d.a -I. -g ${LIBS}
 
 .c.o		:
-			gcc ${FLAGS} -c $< -o ${<:.c=.o}
+			gcc -c $< -o ${<:.c=.o}
 
 clean		:
 			${RM} ${OBJS}

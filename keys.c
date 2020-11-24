@@ -67,7 +67,7 @@ int		ft_key_press(int keycode, t_mega *mega)
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(mega->mlxp, mega->win);
-		kill(mega->pid, SIGKILL);
+		kill(mega->pid, SIGTERM);
 		exit(0);
 	}
 	else if (keycode == LEFT || keycode == RIGHT || keycode == D || keycode == Q)

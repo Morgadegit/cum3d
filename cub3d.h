@@ -33,14 +33,27 @@
 # define D	0x64
 # define A	0x61
 # define E	0x65
+
+typedef struct	s_txtr
+{
+	char	*path;
+	void	*addr;
+	char	*data;
+	int	bpp;
+	int	sline;
+	int	endian;
+}		t_txtr;
+
 typedef	struct	s_map
 {
 	int	res[2];
-	void	*txtr[5];
+	char	*txtr[5];
+	t_txtr	*ttr;
 	int	floor[3];
 	int	ceiling[3];
 	char	**map;
 }		t_map;
+
 typedef struct	s_eng
 {
 	double	pos[2];

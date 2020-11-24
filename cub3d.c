@@ -24,7 +24,8 @@ static void	*ft_dance(t_mega *mega)
 
 static void	ft_song(void)
 {
-	execlp("aplay", "aplay", "-q", "./music.wav", NULL);
+	while (1)
+		execlp("aplay", "aplay", "-q", "./music.wav", NULL);
 }
 
 int		main(int ac, char **av)
