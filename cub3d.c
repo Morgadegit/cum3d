@@ -30,15 +30,18 @@ static void	ft_song(void)
 
 int		main(int ac, char **av)
 {
-	t_mega	mega;
+	t_mega	*mega;
+
+	if (!(mega = malloc(sizeof(t_mega))))
+		return (0);
 	(void)ac;
-	mega.mlxp = mlx_init();
-	if (!ft_map_parse(&mega.map, av[1]))
-		return (ft_free_map(&mega.map));
-	ft_get_start(&mega);
-	mega.pid = fork();
-	if (mega.pid == 0)
-		ft_dance(&mega);
+	mega->mlxp = mlx_init();
+	if (!ft_map_parse(&mega->map, av[1]))
+		return (ft_free_map(&mega->map));
+	ft_get_start(mega);
+	mega->pid = fork();
+	if (mega->pid == 0)
+		ft_dance(mega);
 	else
 		ft_song();
 }

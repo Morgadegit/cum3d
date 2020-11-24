@@ -44,13 +44,13 @@ static void	ft_get_dir(char c, t_eng *eng)
 	}
 }
 
-static void	ft_ttr_init(t_txtr ttr)
+static void	ft_ttr_init(t_txtr *ttr)
 {
-	ttr.path = ft_strdup("");
-	ttr.data = NULL;
-	ttr.bpp = 0;
-	ttr.sline = 0;
-	ttr.endian = 0;
+	ttr->path = ft_strdup("");
+	ttr->data = NULL;
+	ttr->bpp = 0;
+	ttr->sline = 0;
+	ttr->endian = 0;
 }
 
 static void	ft_get_txtr(t_mega *mega, t_map map, t_txtr *ttr, int i)
@@ -92,7 +92,7 @@ void		ft_get_start(t_mega *mega)
 	ft_get_dir(c, &(mega->eng));
 	while (++i < 5)
 	{
-		ft_ttr_init(mega->map.ttr[i]);
+		ft_ttr_init(&mega->map.ttr[i]);
 		ft_get_txtr(mega, mega->map, &mega->map.ttr[i], i);
 	}
 	mega->eng.pos[0] = x;
