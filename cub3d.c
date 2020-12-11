@@ -15,7 +15,7 @@
 static void	*ft_dance(t_mega *mega)
 {
 	mega->win = mlx_new_window(mega->mlxp, mega->map.res[0], mega->map.res[1], "CUB3D");
-	ft_raycast(mega, &mega->eng, &mega->map, -1);
+	mlx_expose_hook(mega->win, ft_raycast_start, mega); 
 	mlx_hook(mega->win, 3, 3, ft_key_press, mega);
 	mlx_loop(mega->mlxp);
 	ft_free_map(&mega->map);
@@ -34,11 +34,12 @@ int		main(int ac, char **av)
 
 	if (!(mega = malloc(sizeof(t_mega))))
 		return (0);
+	ft_init_mega(mega);
 	(void)ac;
 	mega->mlxp = mlx_init();
 	if (!ft_map_parse(&mega->map, av[1]))
 		return (ft_free_map(&mega->map));
-	ft_get_start(mega);
+	ft_get_start(mega, &(mega->map), &(mega->eng));
 	mega->pid = fork();
 	if (mega->pid == 0)
 		ft_dance(mega);

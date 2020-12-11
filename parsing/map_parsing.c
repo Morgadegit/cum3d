@@ -79,7 +79,7 @@ static int	ft_fill_para(char *line, t_map *map, int i)
 		map->txtr[ft_get_txt(line)] = ft_strtrim(line + i, " \t");
 	}
 	else if (*line == 'F' || *line == 'C')
-		return (ft_fill_clr(map, 2, line, -1));
+		return (ft_fill_clr(map, 1, line, -1));
 	else if (*line)
 		ft_err(5);
 	return (1);
@@ -91,16 +91,14 @@ int		ft_map_parse(t_map *map, char *cub)
 	char	*line;
 
 	line = NULL;
-	ft_init_map(map);
 	if ((fd = open(cub, O_RDONLY)) == -1)
 		return (ft_err(0));
 	while (get_next_line(fd, &line))
 	{
 		if (!ft_check_map(line))
 			return (0);
-		if (line)
-			if (!ft_fill_para(line, map, 0))
-				return (0);
+		if (line && !ft_fill_para(line, map, 0))
+			return (0);
 		free(line);
 		ft_ismapfil(map) ? ft_proper(map, &line, fd) : 0;
 	}

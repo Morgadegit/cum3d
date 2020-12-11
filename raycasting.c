@@ -12,6 +12,32 @@
 
 #include "cub3d.h"
 
+static void	ft_draw_ui(t_mega *mega, t_map *map)
+{
+	int	x;
+	int	y;
+	int	r;
+
+	x = map->res[0] / 2 - map->res[0] / 20;
+	y = map->res[1] / 2;
+	r = 0;
+	while (r++ < map->res[0] / 20)
+		mlx_pixel_put(mega->mlxp, mega->win, x++, y, 0xffffff);
+	x += map->res[0] / 25;
+	r = 0;
+	while (r++ < map->res[0] / 20)
+		mlx_pixel_put(mega->mlxp, mega->win, x++, y, 0xffffff);
+	x = map->res[0] / 2 + map->res[0] / 48;
+	y = map->res[1] / 2 - map->res[1] / 14;
+	r = 0;
+	while (r++ < map->res[1] / 20)
+		mlx_pixel_put(mega->mlxp, mega->win, x, y++, 0xffffff);
+	y += map->res[1] / 25;
+	r = 0;
+	while (r++ < map->res[1] / 20)
+		mlx_pixel_put(mega->mlxp, mega->win, x, y++, 0xffffff);
+}
+
 static void	ft_step(t_eng *eng)
 {
 	if (eng->ray[0] < 0)
@@ -44,44 +70,17 @@ static void	ft_DDA(t_eng *eng, t_map *map)
 		{
 			eng->Ddist[0] += eng->Ddelta[0];
 			eng->Dpos[0] += eng->Dstep[0];
-			eng->side = 0;
+			eng->side = eng->ray[0] < 0 ? 0 : 1;
 		}
 		else
 		{
 			eng->Ddist[1] += eng->Ddelta[1];
 			eng->Dpos[1] += eng->Dstep[1];
-			eng->side = 1;
+			eng->side = eng->ray[1] < 0 ? 2 : 3;
 		}
 		if (map->map[(int)eng->Dpos[0]][(int)eng->Dpos[1]] == '1')
 			break;
 	}
-}
-
-static void	ft_draw_screen(t_mega *mega, int Wmin, int Wmax, int x)
-{
-	int	y;
-
-	y = -1;
-	while (++y < Wmin)
-		mlx_pixel_put(mega->mlxp, mega->win, x, y, ft_get_color(mega->map.floor));
-	while (++y < Wmax)
-		mlx_pixel_put(mega->mlxp, mega->win, x, y - 1, mega->eng.side ? 0x9C4E97 : 0x9C4E97 / 2);
-	while (++y - 2 < mega->map.res[1])
-		mlx_pixel_put(mega->mlxp, mega->win, x, y - 2,ft_get_color(mega->map.ceiling));
-}
-
-static void	ft_draw_wall(t_eng *eng, t_map *map, t_mega *mega, int x)
-{
-	int	Wheight;
-	int	Wmin;
-	int	Wmax;
-	
-	Wheight = (int)(map->res[1] / eng->Wdist);
-	Wmin = (-1 * Wheight) / 2 + map->res[1] / 2;
-	Wmin < 0 ? Wmin = 0 : 0;
-	Wmax = Wheight / 2 + map->res[1] / 2;
-	Wmax >= map->res[1] ? Wmax = map->res[1] - 1 : 0;
-	ft_draw_screen(mega, Wmin, Wmax, x);
 }
 
 void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x)
@@ -98,10 +97,11 @@ void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x)
 		eng->Ddelta[1] = !eng->ray[0] ? 0 : (!eng->ray[1] ? 1 : fabs(1 / eng->ray[1]));
 		ft_step(eng);
 		ft_DDA(eng, map);
-		if (eng->side == 0)
+		if (eng->side < 2)
 			eng->Wdist = (eng->Dpos[0] - eng->pos[0] + (1 - eng->Dstep[0]) / 2) / eng->ray[0];
 		else
 			eng->Wdist = (eng->Dpos[1] - eng->pos[1] + (1 - eng->Dstep[1]) / 2) / eng->ray[1];
 		ft_draw_wall(eng, map, mega, x);
+		ft_draw_ui(mega, map);
 	}
 }

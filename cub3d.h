@@ -39,9 +39,14 @@ typedef struct	s_txtr
 	char	*path;
 	void	*addr;
 	char	*data;
+	int	h;
+	int	w;
 	int	bpp;
 	int	sline;
 	int	endian;
+	int	x;
+	int	y;
+	int	step;
 }		t_txtr;
 
 typedef	struct	s_map
@@ -70,6 +75,8 @@ typedef struct	s_eng
 	int	Wdir;
 	double	Wdist;
 	int	side;
+	int	Wmin;
+	int	Wmax;
 }		t_eng;
 typedef struct	s_mega
 {
@@ -89,9 +96,12 @@ int		ft_ismapfil(t_map *map);
 int		ft_proper(t_map *map, char **line, int fd);
 char		**ft_ralloc(char **ptr, int size);
 int		ft_exit(t_mega *mega, int code);
-void		ft_get_start(t_mega *mega);
+void		ft_get_start(t_mega *mega, t_map *map, t_eng *eng);
+int		ft_raycast_start(t_mega *mega);
 void		ft_raycast(t_mega *mega, t_eng *eng, t_map *map, int x);
 int		ft_get_color(int rgb[3]);
 int		ft_key_press(int keycode, t_mega *mega);
+void		ft_init_mega(t_mega *mega);
+void		ft_draw_wall(t_eng *eng, t_map *map, t_mega *mega, int x);
 
 #endif

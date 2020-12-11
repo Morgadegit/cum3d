@@ -40,7 +40,5 @@ int	ft_proper (t_map *map, char **line, int fd)
 		row++;
 	}
 	free(*line);
-	for (int i = 0 ; i < row ; i++)
-		printf("%s\n", map->map[i]);
 	return (1);
 }

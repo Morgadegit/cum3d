@@ -66,8 +66,8 @@ int		ft_key_press(int keycode, t_mega *mega)
 {
 	if (keycode == ESC)
 	{
-		mlx_destroy_window(mega->mlxp, mega->win);
 		kill(mega->pid, SIGTERM);
+		mlx_destroy_window(mega->mlxp, mega->win);
 		exit(0);
 	}
 	else if (keycode == LEFT || keycode == RIGHT || keycode == D || keycode == Q)
@@ -75,7 +75,8 @@ int		ft_key_press(int keycode, t_mega *mega)
 	else if (keycode == UP || keycode == DOWN || keycode == S || keycode == Z)
 		ft_move(keycode, mega, &(mega->eng), &(mega->map));
 	else if (keycode == A || keycode == E)
-		ft_strafe(keycode, mega, &(mega->eng), &(mega->map)); 
+		ft_strafe(keycode, mega, &(mega->eng), &(mega->map));
+//	printf("%f, %f, %f, %f\n", mega->eng.pos[0], mega->eng.pos[1], mega->eng.dir[0], mega->eng.dir[1]);
 	return (0);
 }
 

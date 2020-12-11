@@ -12,31 +12,12 @@
 
 #include "../cub3d.h"
 
-void	ft_init_map(t_map *map)
-{
-	int	i;
-
-	i = -1;
-	map->res[0] = -1;
-	map->res[1] = -1;
-	while (++i < 5)
-		map->txtr[i] = ft_strdup("");
-	i = -1;
-	while (++i < 3)
-		map->floor[i] = -1;
-	i = -1;
-	while (++i < 3)
-		map->ceiling[i] = -1;
-	map->map = malloc(sizeof(char *));
-	map->map[0] = ft_strdup("");
-}
-
 int	ft_free_map(t_map *map)
 {
 	int	i;
 
-	i = 5;
-	while (--i >= 0)
+	i = -1;
+	while (++i < 5)
 		free(map->txtr[i]);
 	i = -1;
 	while (map->map[++i][0])
@@ -75,15 +56,10 @@ char	**ft_ralloc(char **ptr, int size)
 	int	i;
 	char	**new;
 
-	i = 0;
+	i = -1;
 	new = malloc((size + 1) * sizeof(char *));
-	while (i < size)
-	{
+	while (++i < size)
 		new[i] = ft_strdup(ptr[i]);
-		free(ptr[i]);
-		i++;
-	}
 	new[i] = ft_strdup("");
-	free(ptr);
 	return (new);
 }
