@@ -5,47 +5,20 @@ static void	ft_draw_txtr(t_mega *mega, t_eng *eng, t_txtr *txtr, int x)
 	unsigned int	*pix;
 	int		y;
 	double		WallH;
-	int		repeat;
-	int		wall;
+	double		wall;
 
 	y = eng->Wmin;
 	wall = eng->Wmax - eng->Wmin;
 	WallH = eng->side < 2 ? eng->pos[1] + eng->Wdist * eng->ray[1] : eng->pos[0] + eng->Wdist * eng->ray[0];
 	txtr->y = 0;
 	txtr->x = WallH == floor(WallH) ? 0 : txtr->w * (WallH - floor(WallH));
-	if (wall > txtr->h)
+	while (y < eng->Wmax)
 	{
-		txtr->step = wall / txtr->h;
-		repeat = wall % txtr->h;
-	//	if (x == mega->map.res[0] / 2)
-	//		printf("step %i, repeat %i, wall %i\n", txtr->step, repeat, wall);
-		while (y < eng->Wmax)
-		{
-			if (repeat)
-			{
-				if ((y - eng->Wmin) % txtr->step == 0 && 
-					(y - eng->Wmin) % (wall / repeat))
-					txtr->y++;
-			}
-			else
-				if ((y - eng->Wmin) % txtr->step == 0)
-					txtr->y++;
-			pix = (int *)(txtr->data + (txtr->y * txtr->sline) + (txtr->x * 4));
-			mlx_pixel_put(mega->mlxp, mega->win, x, y, *pix);
-			y++;
-		}
-	}
-	else
-	{
-		repeat = txtr->h / wall;
-		while (y < eng->Wmax)
-		{
-			if ((y - eng->Wmin) % repeat == 0)
-				txtr->y++;
-			pix = (int *)(txtr->data + ((txtr->y * repeat) * txtr->sline) + (txtr->x * 4));
-			mlx_pixel_put(mega->mlxp, mega->win, x, y, *pix);
-			y++;
-		}
+		txtr->y = ((wall / 2.0) - (mega->map.res[1] / 2.0) + y) * (txtr->h / wall);
+		txtr->y < 0 ? txtr->y = 0 : 0 ;
+		pix = (int *)(txtr->data + (txtr->y * txtr->sline) + (txtr->x * 4));
+		mlx_pixel_put(mega->mlxp, mega->win, x, y, *pix);
+		y++;
 	}
 }
 
@@ -57,8 +30,6 @@ static void	ft_draw_screen(t_mega *mega, t_eng *eng, int x)
 	while (y-- > eng->Wmax)
 		mlx_pixel_put(mega->mlxp, mega->win, x, y, ft_get_color(mega->map.ceiling));
 	y += 2;
-	//	while (y-- > eng->Wmin - 1)
-	//		mlx_pixel_put(mega->mlxp, mega->win, x, y - 1, 0x9C4E97 / (eng->side + 1));
 	y = eng->Wmin;
 	while (y-- > 0)
 		mlx_pixel_put(mega->mlxp, mega->win, x, y - 2, ft_get_color(mega->map.floor));
