@@ -76,6 +76,8 @@ void		ft_get_start(t_mega *mega, t_map *map, t_eng *eng)
 	eng->step = 0.08;
 	eng->turn = 0.04;
 	ft_get_dir(c, eng);
+	eng->image = mlx_new_image(mega->mlxp, map->res[0], map->res[1]);
+	eng->render = (int *)mlx_get_data_addr(eng->image, &i, &i, &i);
 	i = -1;
 	while (++i < 5)
 		ft_get_txtr(mega, map, &map->ttr[i], i);

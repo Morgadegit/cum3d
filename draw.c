@@ -17,23 +17,24 @@ static void	ft_draw_txtr(t_mega *mega, t_eng *eng, t_txtr *txtr, int x)
 		txtr->y = ((wall / 2.0) - (mega->map.res[1] / 2.0) + y) * (txtr->h / wall);
 		txtr->y < 0 ? txtr->y = 0 : 0 ;
 		pix = (int *)(txtr->data + (txtr->y * txtr->sline) + (txtr->x * 4));
-		mlx_pixel_put(mega->mlxp, mega->win, x, y, *pix);
+		eng->render[y * mega->map.res[0] + x] = *pix; 
 		y++;
 	}
 }
 
-static void	ft_draw_screen(t_mega *mega, t_eng *eng, int x)
+static void	ft_draw_screen(t_mega *mega, t_eng *eng, t_map *map, int x)
 {
 	int	y;
 
 	y = mega->map.res[1];
 	while (y-- > eng->Wmax)
-		mlx_pixel_put(mega->mlxp, mega->win, x, y, ft_get_color(mega->map.ceiling));
+		eng->render[y * map->res[0] + x] = ft_get_color(mega->map.ceiling);
 	y += 2;
 	y = eng->Wmin;
 	while (y-- > 0)
-		mlx_pixel_put(mega->mlxp, mega->win, x, y - 2, ft_get_color(mega->map.floor));
+		eng->render[y * map->res[0] + x] = ft_get_color(mega->map.floor);
 	ft_draw_txtr(mega, eng, &mega->map.ttr[eng->side], x);
+	mlx_put_image_to_window(mega->mlxp, mega->win, eng->image, 0, 0);
 }
 
 void	ft_draw_wall(t_eng *eng, t_map *map, t_mega *mega, int x)
@@ -45,6 +46,6 @@ void	ft_draw_wall(t_eng *eng, t_map *map, t_mega *mega, int x)
 	eng->Wmin < 0 ? eng->Wmin = 0 : 0;
 	eng->Wmax = Wheight / 2 + map->res[1] / 2;
 	eng->Wmax >= map->res[1] ? eng->Wmax = map->res[1] - 1 : 0;
-	ft_draw_screen(mega, eng, x);
+	ft_draw_screen(mega, eng, map, x);
 }
 

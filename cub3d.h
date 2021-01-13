@@ -77,6 +77,8 @@ typedef struct	s_eng
 	int	side;
 	int	Wmin;
 	int	Wmax;
+	int	*image;
+	int	*render;
 }		t_eng;
 typedef struct	s_mega
 {
